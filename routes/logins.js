@@ -3,7 +3,7 @@ const fetchuser = require('../middlewares/fetchuser')
 const router = express.Router()
 const Logins = require('../models/Logins')
 const { body, validationResult } = require('express-validator');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 //ROUTE1: Get all the Logins using: Get "/api/login/fetchalllogins". Login required
 router.get('/fetchalllogin', fetchuser, async (req,res)=>{
