@@ -1,0 +1,105 @@
+<div class="header-card">
+	<mat-card>Total Active Projects</mat-card>
+	<mat-card>Total Revenue</mat-card>
+	<mat-card>Total Spends</mat-card>
+	<mat-card>Total Projects</mat-card>
+</div>
+<div class="body-card">
+	<div class="left-cards">
+    	<mat-card>Total Tasks</mat-card>
+    	<mat-card>Open Tasks</mat-card>
+    	<mat-card>Closed Tasks</mat-card>
+	</div>
+	<div class="main-card">
+    	<mat-card>Body card</mat-card>
+	</div>
+</div>
+ 
+ 
+Pseudocode for committed-tasks.component.html:
+<div>
+	<div class="btn-container">
+    	<mat-form-field appearance="outline">
+        	<mat-label>Search</mat-label>
+        	<input matInput (keyup)="applyFilter($event)" placeholder="Ex. John" #input>
+    	</mat-form-field>
+ 
+    	<button mat-fab extended class="excel" (click)="exporter.exportTable('xlsx',{fileName:'Task-Data'})">
+        	<i class="bi bi-download"></i> &nbsp; Export to Excel
+    	</button>
+ 
+    	<!-- <button mat-fab extended class="btn" (click)="createTask()">
+            <mat-icon>add</mat-icon>Create Task
+    	</button> -->
+ 
+	</div>
+ 
+	<div class="mat-elevation-z8">
+    	<table mat-table matTableExporter [dataSource]="dataSource" matSort #exporter="matTableExporter">
+ 
+        	<ng-container matColumnDef="taskId">
+            	<th mat-header-cell *matHeaderCellDef mat-sort-header> Task ID </th>
+            	<td mat-cell *matCellDef="let row"> {{row.taskId}}</td>
+        	</ng-container>
+ 
+        	<ng-container matColumnDef="title">
+            	<th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+            	<td mat-cell *matCellDef="let row"> {{row.title}} </td>
+        	</ng-container>
+ 
+        	<ng-container matColumnDef="status">
+            	<th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+            	<td mat-cell *matCellDef="let row"> {{row.status}} </td>
+        	</ng-container>
+ 
+        	<ng-container matColumnDef="createdDate">
+            	<th mat-header-cell *matHeaderCellDef mat-sort-header> Created Date </th>
+            	<td mat-cell *matCellDef="let row"> {{row.createdDate}} </td>
+        	</ng-container>
+ 
+        	<ng-container matColumnDef="project">
+            	<th mat-header-cell *matHeaderCellDef mat-sort-header> Project </th>
+            	<td mat-cell *matCellDef="let row"> {{row.project}} </td>
+        	</ng-container>
+ 
+        	<ng-container matColumnDef="createdBy">
+            	<th mat-header-cell *matHeaderCellDef mat-sort-header> Created By </th>
+            	<td mat-cell *matCellDef="let row"> {{row.createdBy}} </td>
+        	</ng-container>
+ 
+        	<ng-container matColumnDef="assignedBy">
+            	<th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned By </th>
+            	<td mat-cell *matCellDef="let row"> {{row.assignedBy}} </td>
+        	</ng-container>
+ 
+        	<ng-container matColumnDef="assignedTo">
+            	<th mat-header-cell *matHeaderCellDef mat-sort-header> Assigned To </th>
+            	<td mat-cell *matCellDef="let row"> {{row.assignedTo}} </td>
+        	</ng-container>
+ 
+        	<ng-container matColumnDef="action">
+            	<th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+            	<td mat-cell *matCellDef="let row">
+                	<button mat-icon-button color="primary">
+                    	<mat-icon>visibility</mat-icon>
+                	</button>
+                	<button mat-icon-button color="accent">
+                    	<mat-icon>edit</mat-icon>
+                	</button>
+            	</td>
+        	</ng-container>
+ 
+        	<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        	<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+ 
+        	<!-- Row shown when there is no matching data. -->
+        	<tr class="mat-row" *matNoDataRow>
+            	<td class="mat-cell" colspan="4">No data matching the task "{{input.value}}"</td>
+        	</tr>
+    	</table>
+ 
+    	<mat-paginator class="table-container" [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons
+        	aria-label="Select page of teams"></mat-paginator>
+ 
+	</div>
+</div>
